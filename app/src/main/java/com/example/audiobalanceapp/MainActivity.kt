@@ -6,6 +6,8 @@ import android.widget.Spinner
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.audiobalanceapp.AudioBalanceHelper
+import com.example.audiobalanceapp.R
+
 
 class MainActivity : AppCompatActivity() {
 

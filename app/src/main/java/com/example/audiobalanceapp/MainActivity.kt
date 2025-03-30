@@ -1,46 +1,39 @@
-package com.example.audiobalanceapp
-
+import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.audiobalanceapp.ui.theme.AudioBalanceAppTheme
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            AudioBalanceAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+        setContentView(R.layout.activity_main)
+
+        val spinnerBalance: Spinner = findViewById(R.id.spinnerBalance)
+        val btnAplicar: Button = findViewById(R.id.btnAplicar)
+
+        // Opciones del ComboBox (Spinner)
+        val opciones = arrayOf(
+            "50% de Balance a la Izquierda",
+            "50% de Balance a la Derecha"
+        )
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, opciones)
+        spinnerBalance.adapter = adapter
+
+        val AudioBalanceHelper = AudioBalanceHelper(this)
+
+        btnAplicar.setOnClickListener {
+            val seleccion = spinnerBalance.selectedItem.toString()
+
+            when (seleccion) {
+                "50% de Balance a la Izquierda" -> AudioBalanceHelper.setBalance(-0.5f)
+                "50% de Balance a la Derecha" -> AudioBalanceHelper.setBalance(0.5f)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AudioBalanceAppTheme {
-        Greeting("Android")
     }
 }

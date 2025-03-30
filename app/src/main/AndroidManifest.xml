@@ -14,8 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AudioBalanceApp"
         tools:targetApi="31">
-        <activity
-            android:name=".MainActivity"
+        <activity android:name="com.example.audiobalanceapp.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AudioBalanceApp">
